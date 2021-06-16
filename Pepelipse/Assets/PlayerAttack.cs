@@ -25,7 +25,12 @@ public class PlayerAttack : MonoBehaviour
 
     RaycastHit hit;
 
+    public Animator animator;
+
     bool Shoot;
+
+    [SerializeField]
+    Transform PlayerSpine;
 
     void Start()
     {
@@ -66,9 +71,8 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         else if (Shoot && Input.GetMouseButtonUp(0)) {
-            Debug.Log("asd");
 
-            Instantiate(Bullet, transform.position, transform.rotation);
+            StartCoroutine(ShootBullet());
 
             Shoot = false;
         }
@@ -77,4 +81,24 @@ public class PlayerAttack : MonoBehaviour
             LR.gameObject.SetActive(false);
         }
     }
+
+    IEnumerator ShootBullet() {
+
+        PlayerSpine.LookAt(AttackLookAtPoint);
+
+        PlayerSpine.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+
+        animator.SetBool("isShooting", true);
+        //Instantiate(Bullet, new Vector3(transform.position.x, 0.5f, transform.position.z), transform.rotation);
+        for (int i = 0; i < 1; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            Instantiate(Bullet, new Vector3(transform.position.x, 0.5f, transform.position.z), transform.rotation);
+            animator.SetBool("isShooting", false);
+        }
+
+       //layerSpine.localRotation = PlayerSpineChild.localRotation;
+        //StartCoroutine(ShootBullet());
+    }
+
 }

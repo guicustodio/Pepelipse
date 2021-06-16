@@ -188,6 +188,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7830203463683870071, guid: f0aa068246263dd4ba7a61b712d2c765,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 7830203463683870071, guid: f0aa068246263dd4ba7a61b712d2c765,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710677
+      objectReference: {fileID: 0}
     - target: {fileID: 7830203463684231489, guid: f0aa068246263dd4ba7a61b712d2c765,
         type: 3}
       propertyPath: m_Name
@@ -919,6 +929,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 17263607}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &931400801 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8117583199093232115, guid: f0aa068246263dd4ba7a61b712d2c765,
+    type: 3}
+  m_PrefabInstance: {fileID: 17263607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &931400802 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7830203463683870049, guid: f0aa068246263dd4ba7a61b712d2c765,
@@ -939,6 +955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 653237587}
   PlayerSprite: {fileID: 1560771840}
+  animator: {fileID: 931400801}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,6 +1039,12 @@ Transform:
   m_Father: {fileID: 100324853}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 59.883003, y: 0, z: 0}
+--- !u!4 &1344611344 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7830203463683870001, guid: f0aa068246263dd4ba7a61b712d2c765,
+    type: 3}
+  m_PrefabInstance: {fileID: 17263607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1436977387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,7 +1094,9 @@ MonoBehaviour:
   AttackLookAtPoint: {fileID: 1951436389}
   TrailDistance: 10
   Player: {fileID: 931400802}
-  Bullet: {fileID: 180462482587444303, guid: 28f6af56cf21b9443897b4cc817fa987, type: 3}
+  Bullet: {fileID: 1470849698360269320, guid: 9de02fd772707874c8195bd4aa0fc064, type: 3}
+  animator: {fileID: 931400801}
+  PlayerSpine: {fileID: 1344611344}
 --- !u!1 &1456331593
 GameObject:
   m_ObjectHideFlags: 0

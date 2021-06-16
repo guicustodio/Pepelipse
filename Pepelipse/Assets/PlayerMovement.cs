@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Transform PlayerSprite;
 
+    public Animator animator;
+
+    bool Movement;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +29,21 @@ public class PlayerMovement : MonoBehaviour
 
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
-        if(joystick.Horizontal > 0 || joystick.Horizontal < 0 || joystick.Vertical > 0 || joystick.Vertical < 0)
+        if (joystick.Horizontal > 0 || joystick.Horizontal < 0 || joystick.Vertical > 0 || joystick.Vertical < 0)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime); 
+            transform.Translate(Vector3.forward * Time.deltaTime);
+
+            if (animator.GetBool("isWalking") != true)
+            {
+                animator.SetBool("isWalking", true);
+            }
+            Movement = true;
         }
+        else if (Movement == true) {
+            animator.SetBool("isWalking", false);
+
+            Movement = false;
+        }
+
     }
 }
