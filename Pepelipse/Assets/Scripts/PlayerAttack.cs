@@ -38,16 +38,38 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         GameObject gJoystick = GameObject.FindWithTag("AttackJoystick");
+        GameObject closestEnemy = GameObject.Find("Player");
 
         view = GetComponent<PhotonView>();
         AttackJoystick = gJoystick.GetComponent<Joystick>();
 
+        FindClosest enemy = closestEnemy.GetComponent<FindClosest>();
+
     }
 
+    [PunRPC]
     void Update()
     {
         if (view.IsMine)
         {
+
+            if (Mathf.Abs(AttackJoystick.Horizontal) > 0 || Mathf.Abs(AttackJoystick.Vertical) > 0)
+            {
+
+                transform.position = new Vector3(Player.position.x, 0, Player.position.z);
+
+                AttackLookAtPoint.position = new Vector3(AttackJoystick.Horizontal + Player.position.x, 0, AttackJoystick.Vertical + Player.position.z);
+
+                transform.LookAt(new Vector3(AttackLookAtPoint.position.x, 0, AttackLookAtPoint.position.z));
+
+                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+
+                if (Shoot == false)
+                {
+                    Shoot = true;
+                }
+            }
+
             if (Mathf.Abs(AttackJoystick.Horizontal) > 0.5f || Mathf.Abs(AttackJoystick.Vertical) > 0.5f)
             {
                 if (LR.gameObject.activeInHierarchy == false)
@@ -71,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
                 else
                 {
                     LR.SetPosition(1, transform.forward * TrailDistance);
-                    LR.SetPosition(1, new Vector3(LR.GetPosition(1).x, 0, LR.GetPosition(1).z));
+                    LR.SetPosition(1, new Vector3(LR.GetPosition(1).x, LR.GetPosition(1).y, LR.GetPosition(1).z));
                 }
 
                 if (Shoot == false)
@@ -82,7 +104,9 @@ public class PlayerAttack : MonoBehaviour
             else if (Shoot && Input.GetMouseButtonUp(0))
             {
 
-                StartCoroutine(ShootBullet());
+                //StartCoroutine(ShootBulletRPC());
+                view.RPC("ShootBulletRPC", RpcTarget.All);
+
 
                 Shoot = false;
             }
@@ -94,7 +118,8 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    IEnumerator ShootBullet() {
+    [PunRPC]
+    IEnumerator ShootBulletRPC() {
 
         PlayerSpine.LookAt(AttackLookAtPoint);
 
