@@ -17,7 +17,7 @@ public class BulletScript : MonoBehaviour
     void Start()
     {
         PA = GameObject.Find("AttackTrail").GetComponent<PlayerAttack>();
-        BulletEndDist = transform.position + transform.forward * PA.TrailDistance;
+        BulletEndDist = transform.position + transform.forward * PA._maxTrailDistance;
     }
 
     // Update is called once per frame
